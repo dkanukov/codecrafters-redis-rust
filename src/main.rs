@@ -7,12 +7,10 @@ fn main() {
     for stream in listener.incoming() {
         match stream {
             Ok(mut stream) => {
-                println!("accepted new connection");
-
                 loop {
-                    let readers_amount = stream.read(&mut []).unwrap();
+                    let read_count = stream.read(&mut []).unwrap();
 
-                    if readers_amount == 0 {
+                    if read_count == 0 {
                         break;
                     }
                     stream.write_all(b"+PONG\r\n").unwrap();
