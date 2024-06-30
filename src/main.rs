@@ -7,8 +7,10 @@ fn main() {
     for stream in listener.incoming() {
         match stream {
             Ok(mut stream) => {
+                let mut buffer = [0; 512];
                 loop {
-                    let read_count = stream.read(&mut []).unwrap();
+                    let read_count = stream.read(&mut buffer).unwrap();
+                    println!("{}", read_count);
 
                     if read_count == 0 {
                         break;
